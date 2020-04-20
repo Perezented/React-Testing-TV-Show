@@ -6,8 +6,6 @@ export const fetchShow = () => {
             'https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes'
         )
         .then((res) => {
-            // setShow(res);
-            // setSeasons(formatSeasons(res.data._embedded.episodes));
             return res;
         })
         .catch((err) => {
