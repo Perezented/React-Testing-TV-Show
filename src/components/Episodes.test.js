@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Episodes from './Episodes';
-const data = {
+const strangerThingsData = {
     id: 2993,
     url: 'http://www.tvmaze.com/shows/2993/stranger-things',
     name: 'Stranger Things',
@@ -634,7 +634,7 @@ const data = {
 // console.log(mockFetchShow);
 
 test('Check the status of the list', () => {
-    console.log(data);
+    console.log(strangerThingsData);
 });
 
 test('EpisodesList renders without errors', () => {
@@ -644,6 +644,6 @@ test('EpisodesList renders without errors', () => {
 test('Renders the episodes', () => {
     const { rerender, getByTestId } = render(<Episodes episodes={[]} />);
 
-    rerender(<Episodes episodes={data._embedded.episodes} />);
+    rerender(<Episodes episodes={strangerThingsData._embedded.episodes} />);
     expect(getByTestId('episodesDiv')).toBeInTheDocument();
 });
