@@ -4,6 +4,7 @@ import {
     waitFor,
     queryByText,
     getByText,
+    getByTestId,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -712,9 +713,23 @@ jest.mock('./api/fetchShow');
 
 test('Renders App component', async () => {
     mockFetchShow.mockResolvedValueOnce(res);
-    // console.log(res.data);
-
     const { debug, getByText } = render(<App />);
-    debug();
+    // debug();
     expect(getByText(/fetching data/i)).toBeInTheDocument();
+});
+
+test('Renders out a season after it is selected on the dropdown', async () => {
+    mockFetchShow.mockResolvedValueOnce(res);
+
+    const { debug, rerender, getByText } = render(<App />);
+    expect(getByText(/fetching data/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+        rerender(<App res={res} />);
+    });
+    debug();
+    userEvent.click(getByText(/select a season/i));
+    userEvent.click(getByText(/season 3/i));
+    debug();
+    expect(getByText(/season 3, episode 4/i)).toBeInTheDocument();
 });

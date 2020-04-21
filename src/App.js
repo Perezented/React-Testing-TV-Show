@@ -32,7 +32,7 @@ export default function App() {
     }
     // console.log(show);
     return (
-        <div className="App">
+        <div className="App" data_testid="strangerThingsDiv">
             <img
                 className="poster-img"
                 src={show.image.original}
