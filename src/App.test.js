@@ -5,6 +5,7 @@ import {
     queryByText,
     getByText,
     getByTestId,
+    getAllByText,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -721,15 +722,16 @@ test('Renders App component', async () => {
 test('Renders out a season after it is selected on the dropdown', async () => {
     mockFetchShow.mockResolvedValueOnce(res);
 
-    const { debug, rerender, getByText } = render(<App />);
+    const { debug, rerender, getByText, getAllByText } = render(<App />);
     expect(getByText(/fetching data/i)).toBeInTheDocument();
 
     await waitFor(() => {
-        rerender(<App res={res} />);
+        rerender(<App />);
     });
-    debug();
+    // debug();
     userEvent.click(getByText(/select a season/i));
     userEvent.click(getByText(/season 3/i));
-    debug();
+    // debug();
     expect(getByText(/season 3, episode 4/i)).toBeInTheDocument();
+    console.log(getAllByText(/chapter/i));
 });
