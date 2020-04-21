@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    render,
-    waitFor,
-    queryByText,
-    getByText,
-    getByTestId,
-    getAllByText,
-} from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './App';
@@ -733,8 +726,8 @@ test('Renders out a season after it is selected on the dropdown', async () => {
     userEvent.click(getByText(/season 3/i));
     // debug();
     expect(getByText(/season 3, episode 4/i)).toBeInTheDocument();
-    console.log(getAllByText(/chapter/i));
 });
+
 test('Should fail as season 4 is not in there', async () => {
     mockFetchShow.mockResolvedValueOnce(res);
 
@@ -749,5 +742,4 @@ test('Should fail as season 4 is not in there', async () => {
     userEvent.click(getByText(/season 3/i));
     // debug();
     expect(getByText(/season 4, episode 4/i)).toBeInTheDocument();
-    console.log(getAllByText(/chapter/i));
 });
