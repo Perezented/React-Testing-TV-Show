@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Episodes from './Episodes';
-import App from '../App';
 const data = {
     id: 2993,
     url: 'http://www.tvmaze.com/shows/2993/stranger-things',
