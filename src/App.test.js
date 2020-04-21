@@ -735,3 +735,19 @@ test('Renders out a season after it is selected on the dropdown', async () => {
     expect(getByText(/season 3, episode 4/i)).toBeInTheDocument();
     console.log(getAllByText(/chapter/i));
 });
+test('Should fail as season 4 is not in there', async () => {
+    mockFetchShow.mockResolvedValueOnce(res);
+
+    const { debug, rerender, getByText, getAllByText } = render(<App />);
+    expect(getByText(/fetching data/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+        rerender(<App />);
+    });
+    // debug();
+    userEvent.click(getByText(/select a season/i));
+    userEvent.click(getByText(/season 3/i));
+    // debug();
+    expect(getByText(/season 4, episode 4/i)).toBeInTheDocument();
+    console.log(getAllByText(/chapter/i));
+});
