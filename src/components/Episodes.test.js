@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Episodes from './Episodes';
-
+import App from '../App';
 const data = {
     id: 2993,
     url: 'http://www.tvmaze.com/shows/2993/stranger-things',
@@ -642,17 +642,9 @@ test('EpisodesList renders without errors', () => {
     render(<Episodes episodes={[]} />);
 });
 
-test('Renders the episodes after the season is selected for viewing', () => {
-    const { rerender, getByText, queryAllByTestId } = render(
-        <Episodes episodes={[]} />
-    );
-    // console.log(data._embedded.episodes.length);
-    expect(queryAllByTestId(/episodes/i)).toHaveLength(0);
+test('Renders the episodes', () => {
+    const { rerender, getByTestId } = render(<Episodes episodes={[]} />);
 
     rerender(<Episodes episodes={data._embedded.episodes} />);
+    expect(getByTestId('episodesDiv')).toBeInTheDocument();
 });
-// test('Renders up page', async () => {
-//     mockFetchShow.mockResolvedValueOnce(data);
-//     const { getByText } = render(<Episodes />);
-//     await waitFor(() => expect(getByText(/stranger things/i)).toBeInDocument());
-// });
