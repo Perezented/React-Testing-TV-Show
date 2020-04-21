@@ -1,5 +1,10 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import {
+    render,
+    waitFor,
+    queryByText,
+    getByText,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './App';
@@ -707,7 +712,9 @@ jest.mock('./api/fetchShow');
 
 test('Renders App component', async () => {
     mockFetchShow.mockResolvedValueOnce(res);
-    console.log(res.data);
+    // console.log(res.data);
 
-    const {} = render(<App />);
+    const { debug, getByText } = render(<App />);
+    debug();
+    expect(getByText(/fetching data/i)).toBeInTheDocument();
 });
