@@ -4,9 +4,8 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 
 import { fetchData as mockFetchShows } from './api/fetchShows';
-import { act } from 'react-dom/test-utils';
 
-const dataResponse = {
+export const dataResponse = {
     id: 2993,
     url: 'http://www.tvmaze.com/shows/2993/stranger-things',
     name: 'Stranger Things',
@@ -649,14 +648,13 @@ test('App renders the season drop down', async () => {
     });
 });
 
-test('Able to select a specific season to view the episodes', async () => {
+test('Able to see the different seasons on the drop down', async () => {
     mockFetchShows.mockResolvedValueOnce(dataResponse);
-    const { getByText, rerender, debug } = render(<App />);
+    const { getByText, rerender, getAllByText, debug } = render(<App />);
     await waitFor(() => {
         rerender(<App />);
     });
     // debug();
     userEvent.click(getByText(/select a season/i));
-    userEvent.click(getByText(/season 3/i));
-    expect(getByText(/suzie, do you copy/i)).toBeInTheDocument();
+    expect(getAllByText(/season/i)).toHaveLength(5);
 });
