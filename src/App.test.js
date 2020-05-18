@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, waitFor, getByText } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
 import { fetchData as mockFetchShows } from './api/fetchShows';
+import { act } from 'react-dom/test-utils';
 
 const dataResponse = {
     id: 2993,
@@ -632,9 +633,14 @@ const dataResponse = {
         ],
     },
 };
-
-test('App renders', () => {
-    render(<App />);
+jest.mock('./api/fetchShows');
+// console.log(dataResponse);
+test('App renders', async () => {
+    mockFetchShows.mockResolvedValueOnce(dataResponse);
+    const { getByText } = render(<App />);
+    await waitFor(() => {
+        expect(getByText(/fetching data/i)).toBeInTheDocument();
+    });
 });
 
 // jest.mock('./api/fetchShows');
