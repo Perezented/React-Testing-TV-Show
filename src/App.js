@@ -16,6 +16,16 @@ export default function App() {
     const [selectedSeason, setSelectedSeason] = useState('');
     const episodes = seasons[selectedSeason] || [];
 
+    useEffect(() => {
+        const getData = () => {
+            fetchData().then((res) => {
+                setShow(res.data);
+                setSeasons(formatSeasons(res.data._embedded.episodes));
+            });
+        };
+        getData();
+    }, []);
+
     // useEffect(() => {
     //     const fetchShow = () => {
     //         axios
