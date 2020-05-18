@@ -638,10 +638,25 @@ jest.mock('./api/fetchShows');
 test('App renders', async () => {
     mockFetchShows.mockResolvedValueOnce(dataResponse);
     const { getByText } = render(<App />);
+    expect(getByText(/fetching data/i)).toBeInTheDocument();
+});
+
+test('App renders the season drop down', async () => {
+    mockFetchShows.mockResolvedValueOnce(dataResponse);
+    const { getByText } = render(<App />);
     await waitFor(() => {
-        expect(getByText(/fetching data/i)).toBeInTheDocument();
+        expect(getByText(/select a season/i)).toBeInTheDocument();
     });
 });
 
-// jest.mock('./api/fetchShows');
-// test('App gets the axios information', async () => {});
+test('Able to select a specific season to view the episodes', async () => {
+    mockFetchShows.mockResolvedValueOnce(dataResponse);
+    const { getByText, rerender, debug } = render(<App />);
+    await waitFor(() => {
+        rerender(<App />);
+    });
+    // debug();
+    userEvent.click(getByText(/select a season/i));
+    userEvent.click(getByText(/season 2/i));
+    debug();
+});
