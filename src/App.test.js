@@ -657,6 +657,6 @@ test('Able to select a specific season to view the episodes', async () => {
     });
     // debug();
     userEvent.click(getByText(/select a season/i));
-    userEvent.click(getByText(/season 2/i));
-    debug();
+    userEvent.click(getByText(/season 3/i));
+    expect(getByText(/suzie, do you copy/i)).toBeInTheDocument();
 });
