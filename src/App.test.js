@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import App from './App';
 
 import { fetchData as mockFetchShows } from './api/fetchShows';
@@ -632,20 +633,13 @@ export const dataResponse = {
         ],
     },
 };
+
 jest.mock('./api/fetchShows');
-// console.log(dataResponse);
+
 test('App renders', async () => {
     mockFetchShows.mockResolvedValueOnce(dataResponse);
     const { getByText } = render(<App />);
     expect(getByText(/fetching data/i)).toBeInTheDocument();
-});
-
-test('App renders the season drop down', async () => {
-    mockFetchShows.mockResolvedValueOnce(dataResponse);
-    const { getByText } = render(<App />);
-    await waitFor(() => {
-        expect(getByText(/select a season/i)).toBeInTheDocument();
-    });
 });
 
 test('Able to see the different seasons on the drop down', async () => {
